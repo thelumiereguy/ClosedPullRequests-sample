@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="feature-closed-pr-listing/src/main/res/drawable/gradient_upgrade_banner.xml" value="0.2995" />
+        <entry key="feature-closed-pr-listing/src/main/res/drawable/ic_home.xml" value="0.2995" />
+        <entry key="feature-closed-pr-listing/src/main/res/drawable/ic_library.xml" value="0.2995" />
+        <entry key="feature-closed-pr-listing/src/main/res/drawable/ic_search.xml" value="0.2995" />
+        <entry key="feature-closed-pr-listing/src/main/res/layout/fragment_audio_books_listing.xml" value="0.29393115942028986" />
+        <entry key="feature-closed-pr-listing/src/main/res/layout/item_audio_book_listing.xml" value="0.29393115942028986" />
+        <entry key="feature-closed-pr-listing/src/main/res/layout/item_upgrade_banner.xml" value="0.29393115942028986" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

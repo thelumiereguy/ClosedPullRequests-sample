@@ -1,0 +1,33 @@
+apply plugin: "org.jlleitschuh.gradle.ktlint"
+
+task ktlintFix( group: LifecycleBasePlugin.VERIFICATION_GROUP) {
+    description = "Check Kotlin code style and fix them"
+    doLast{
+        def command = "ktlint --baseline=ktlint-baseline.xml".execute()
+        def output = command.inputStream.readLines()
+        Set files = []
+        for (line in output){
+            files.add(extractFilePath(line))
+        }
+        //100 to prevent too much files at once
+        files.take(100).each{ String filePath ->
+            def fixCommand = makeFixCommand(filePath)
+            fixCommand.execute()
+        }
+        println("Found ${files.size()} files with issues.")
+        if(files.size()>0){
+            throw new GradleException('some files with lint issues detected and fixed. Rerun again to check if all are fixed.')
+        }
+    }
+}
+
+static def makeFixCommand(String filePath){
+    String command = "ktlint -F ${filePath}"
+    println(command)
+    return command
+}
+
+static def extractFilePath(String file){
+    def filePath = file.split(":")
+    return filePath[0]
+}
