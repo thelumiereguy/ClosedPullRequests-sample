@@ -38,6 +38,11 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs = configs.Configs.FreeCompilerArgs
     }
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
 }
 
 dependencies {
@@ -59,4 +64,16 @@ dependencies {
     implementation(configs.Room.RoomRuntime)
     ksp(configs.Room.RoomCompiler)
     implementation(configs.Room.RoomKtx)
+
+    testImplementation(kotlin("test"))
+
+    testImplementation(configs.Coroutines.CoroutineTest)
+
+    testImplementation(configs.TestUtils.JupiterJunit)
+
+    testImplementation(configs.TestUtils.MockK)
+
+    testImplementation("app.cash.turbine:turbine:0.8.0")
+
+    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
 }
