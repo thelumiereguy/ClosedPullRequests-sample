@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.thelumiereguy.feature_trending_repos"
+    namespace = "dev.thelumiereguy.feature_closed_pr_list"
     compileSdk = configs.Configs.CompileSdk
 
     defaultConfig {
@@ -51,9 +51,9 @@ dependencies {
     implementation(configs.DaggerHiltLib.Android)
     kapt(configs.DaggerHiltLib.Compiler)
 
-//    implementation(project(":core:ui"))
-//    implementation(project(":core:data"))
-//    implementation(project(":core:ab-tests"))
+    api(project(":core:ui"))
+    implementation(project(":core:data"))
+    implementation(project(":core:experiments"))
 
     implementation(configs.SupportLibraries.CoreKtx)
     implementation(configs.SupportLibraries.Appcompat)

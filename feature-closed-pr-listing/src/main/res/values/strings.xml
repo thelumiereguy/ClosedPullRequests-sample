@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_books" translatable="false">My Books</string>
+    <string name="search_books_or_author">Search Books or Author…</string>
+    <string name="there_are_no_more_items_to_show">There are no more items to show</string>
+    <string name="view_plans">View Plans</string>
+    <string name="unlimited_content_whenever_you_need_it">Unlimited Content Whenever you need it.</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="library">Library</string>
+</resources>

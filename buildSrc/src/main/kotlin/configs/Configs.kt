@@ -14,6 +14,7 @@ object Configs {
         "-opt-in=kotlin.Experimental",
         "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
         "-opt-in=kotlinx.coroutines.InternalCoroutinesApi",
-        "-opt-in=kotlinx.coroutines.FlowPreview"
+        "-opt-in=kotlinx.coroutines.FlowPreview",
+        "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
     )
 }
