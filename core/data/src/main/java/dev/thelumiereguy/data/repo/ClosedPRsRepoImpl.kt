@@ -26,19 +26,17 @@ class ClosedPRsRepoImpl @Inject constructor(
 
     private val closedPRsRemote = pageNumberState.flatMapLatest { pageNumber ->
         closedPRsApi.fetchClosedPRs(pageNumber)
-            .onEach {
-                if (it is APIState.Success) {
-                    val prList = it.data
-                    closedPRList = closedPRList + prList.mapPRListingResponseToDomainModel()
-                }
-            }
     }
 
     override fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>> {
-        return closedPRsRemote.map {
-            it + closedPRList
-        }.onEach {
-            println("Repo $it")
+        return closedPRsRemote.map { apiState ->
+
+            if (apiState is APIState.Success) {
+                val prList = apiState.data
+                closedPRList = closedPRList + prList.mapPRListingResponseToDomainModel()
+            }
+
+            apiState appendAPIState closedPRList
         }.flowOn(dispatcherProvider.io)
     }
 

@@ -12,8 +12,8 @@ fun List<ClosedPRsResponseItem>.mapPRListingResponseToDomainModel(): List<Closed
         ClosedPR(
             closedPRsResponseItem.number.toLong(),
             closedPRsResponseItem.title,
-            closedPRsResponseItem.closedAt.formatDate(),
             closedPRsResponseItem.user.login,
+            closedPRsResponseItem.closedAt.formatDate(),
             BranchDetails(
                 closedPRsResponseItem.head.label,
                 closedPRsResponseItem.base.label,

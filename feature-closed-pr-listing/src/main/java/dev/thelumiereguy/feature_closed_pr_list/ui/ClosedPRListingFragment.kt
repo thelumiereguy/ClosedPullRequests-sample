@@ -75,24 +75,15 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.state.collect { uiState ->
-                    when (uiState) {
-                        UIState.EmptyState -> {
-                            binding.progressHorizontal.isVisible = false
-                            binding.rvClosedPR.isVisible = false
-                        }
-                        is UIState.LoadedState -> {
-                            println("UIState $uiState")
-                            binding.progressHorizontal.isInvisible = uiState.isLoading.not()
-                            binding.rvClosedPR.isVisible = uiState.listItems.isNotEmpty()
-                            if (!uiState.errorMessage.isNullOrEmpty()) {
-                                binding.tvError.isVisible = true
-                                binding.tvError.text = "${binding.tvError.text} ${uiState.errorMessage}"
-                            } else {
-                                binding.tvError.isVisible = false
-                            }
-                            closedPRListAdapter?.submitList(uiState.listItems)
-                        }
+                    binding.progressHorizontal.isInvisible = uiState.isLoading.not()
+                    binding.rvClosedPR.isVisible = uiState.listItems.isNotEmpty()
+                    if (!uiState.errorMessage.isNullOrEmpty()) {
+                        binding.tvError.isVisible = true
+                        binding.tvError.text = "${binding.tvError.text} ${uiState.errorMessage}"
+                    } else {
+                        binding.tvError.isVisible = false
                     }
+                    closedPRListAdapter?.submitList(uiState.listItems)
                 }
             }
         }

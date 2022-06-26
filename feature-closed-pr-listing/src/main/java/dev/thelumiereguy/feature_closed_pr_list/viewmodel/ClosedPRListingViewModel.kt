@@ -14,19 +14,18 @@ class ClosedPRListingViewModel @Inject constructor(
 ) : ViewModel() {
 
     val state = closedPRsRepo.getAllClosedPRs().map {
-        println("VM State $it")
         when (it) {
-            is ResultState.Error -> UIState.LoadedState(
+            is ResultState.Error -> UIState(
                 false,
                 it.data ?: emptyList(),
                 it.message
             )
-            is ResultState.Loading -> UIState.LoadedState(
+            is ResultState.Loading -> UIState(
                 true,
                 it.data ?: emptyList(),
                 null
             )
-            is ResultState.Success -> UIState.LoadedState(
+            is ResultState.Success -> UIState(
                 false,
                 it.data,
                 null
@@ -35,12 +34,16 @@ class ClosedPRListingViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(),
-        initialValue = UIState.EmptyState
+        initialValue = UIState(
+            true,
+            emptyList(),
+            null
+        )
     )
 
     fun loadNextPage(lastPosition: Int) {
-        val totalItems = (state.value as? UIState.LoadedState)?.listItems?.size
-        if (totalItems != null && totalItems - lastPosition < 2) {
+        val totalItems = state.value.listItems.size
+        if (totalItems - lastPosition < 2) {
             closedPRsRepo.loadNextPage()
         }
     }

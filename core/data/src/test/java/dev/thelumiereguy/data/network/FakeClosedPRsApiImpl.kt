@@ -1,6 +1,6 @@
 package dev.thelumiereguy.data.network
 
-import dev.thelumiereguy.data.network.models.ClosedPRsListResponse
+import dev.thelumiereguy.data.network.models.ClosedPRsResponseItem
 import dev.thelumiereguy.helpers.framework.APIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -8,65 +8,63 @@ import kotlinx.coroutines.flow.onEach
 
 class FakeClosedPRsApiImpl : ClosedPRsApi {
 
-    private val response = ClosedPRsListResponse().apply {
-        add(
-            ClosedPRsListResponse.ClosedPRsResponseItem(
-                "2022-06-06T18:55:17Z",
-                123,
-                "Test 1",
-                ClosedPRsListResponse.ClosedPRsResponseItem.Base(
-                    "master"
-                ),
-                ClosedPRsListResponse.ClosedPRsResponseItem.Head(
-                    "test",
-                ),
-                ClosedPRsListResponse.ClosedPRsResponseItem.User(
-                    "testuser",
-                )
+    private val response = listOf(
+        ClosedPRsResponseItem(
+            "2022-06-06T18:55:17Z",
+            123,
+            "Test 1",
+            ClosedPRsResponseItem.Base(
+                "master"
+            ),
+            ClosedPRsResponseItem.Head(
+                "test",
+            ),
+            ClosedPRsResponseItem.User(
+                "testuser",
             )
         )
-    }
+    )
 
-    private val responsePage2 = ClosedPRsListResponse().apply {
-        add(
-            ClosedPRsListResponse.ClosedPRsResponseItem(
-                "2022-06-06T18:55:17Z",
-                456,
-                "Test 2",
-                ClosedPRsListResponse.ClosedPRsResponseItem.Base(
-                    "master"
-                ),
-                ClosedPRsListResponse.ClosedPRsResponseItem.Head(
-                    "test_branch",
-                ),
-                ClosedPRsListResponse.ClosedPRsResponseItem.User(
-                    "page2TestUser",
-                )
+    private val responsePage2 = listOf(
+        ClosedPRsResponseItem(
+            "2022-06-06T18:55:17Z",
+            456,
+            "Test 2",
+            ClosedPRsResponseItem.Base(
+                "master"
+            ),
+            ClosedPRsResponseItem.Head(
+                "test_branch",
+            ),
+            ClosedPRsResponseItem.User(
+                "page2TestUser",
             )
         )
-    }
+    )
 
-    override fun fetchClosedPRs(pageNumber: Int): Flow<APIState<List<Any>>> = flow {
-        emit(APIState.Loading)
-        try {
-            if (pageNumber == 1) {
-                emit(APIState.Success(response))
-            } else {
-                emit(APIState.Success(responsePage2))
+    override fun fetchClosedPRs(pageNumber: Int): Flow<APIState<List<ClosedPRsResponseItem>>> =
+        flow {
+            emit(APIState.Loading)
+
+            if (isError) {
+                emit(APIState.Error("error"))
+                return@flow
             }
-        } catch (e: Exception) {
-            emit(APIState.Error(e.message))
-        }
-    }.onEach {
-        println("Api $it")
-    }
 
-    override suspend fun fetchPRDetails(prNumber: Int): ClosedPRDetailsResponse? {
-        return ClosedPRDetailsResponse(
-            prNumber,
-            1,
-            3,
-            5
-        )
+            try {
+                if (pageNumber == 1) {
+                    emit(APIState.Success(response))
+                } else {
+                    emit(APIState.Success(responsePage2))
+                }
+            } catch (e: Exception) {
+                emit(APIState.Error(e.message))
+            }
+        }
+
+    private var isError = false
+
+    fun sendErrorResponse() {
+        isError = true
     }
 }

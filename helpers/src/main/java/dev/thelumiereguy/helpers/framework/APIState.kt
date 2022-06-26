@@ -12,7 +12,7 @@ sealed class APIState<out Type> {
         val message: String?
     ) : APIState<Nothing>()
 
-    inline operator fun <reified Type> plus(
+    inline infix fun <reified Type> appendAPIState(
         defaultData: Type,
     ): ResultState<Type> {
         return when (this) {
