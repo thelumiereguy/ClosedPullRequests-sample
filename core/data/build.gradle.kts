@@ -4,7 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     kotlin("plugin.serialization")
     id("org.jetbrains.kotlin.kapt")
-    id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.parcelize")
     id("dagger.hilt.android.plugin")
 }
@@ -60,10 +59,6 @@ dependencies {
     implementation(configs.SupportLibraries.Appcompat)
 
     implementation(configs.UILibraries.Material)
-
-    implementation(configs.Room.RoomRuntime)
-    ksp(configs.Room.RoomCompiler)
-    implementation(configs.Room.RoomKtx)
 
     testImplementation(kotlin("test"))
 

@@ -7,11 +7,11 @@ import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.helpers.framework.DispatcherProvider
 import dev.thelumiereguy.helpers.framework.ResultState
 import io.mockk.MockKAnnotations
-import kotlin.test.assertEquals
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 internal class ClosedPRsRepoImplTest {
 
@@ -45,7 +45,7 @@ internal class ClosedPRsRepoImplTest {
                                 123,
                                 "Test 1",
                                 "testuser",
-                                "07 Jun 2022",// 1654541717000
+                                "07 Jun 2022", // 1654541717000
                                 branchDetails = BranchDetails(
                                     "test",
                                     "master"
@@ -126,7 +126,7 @@ internal class ClosedPRsRepoImplTest {
         }
 
     @Test
-    fun `when next page is invoked and if error occurs, error state should be emitted with existing data`() =
+    fun `if error occurs, error state should be emitted with existing data`() =
         runTest {
 
             val page1Item = ClosedPR(

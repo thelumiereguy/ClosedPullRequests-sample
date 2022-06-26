@@ -78,4 +78,6 @@ dependencies {
     testImplementation(configs.TestUtils.JupiterJunit)
 
     testImplementation(configs.TestUtils.MockK)
+
+    testImplementation("app.cash.turbine:turbine:0.8.0")
 }
