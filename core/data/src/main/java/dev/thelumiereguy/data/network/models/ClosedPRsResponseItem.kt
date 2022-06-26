@@ -1,6 +1,5 @@
 package dev.thelumiereguy.data.network.models
 
-
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -8,15 +8,16 @@
     android:paddingHorizontal="16dp"
     android:paddingTop="24dp">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progress_horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:indeterminate="true"
         app:indicatorColor="@color/primary_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:trackThickness="4dp" />
 
     <TextView
@@ -25,10 +26,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/dm_sans_bold"
         android:text="Closed Pull Requests"
+        android:layout_marginTop="14dp"
         android:textColor="#06070C"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/progress_horizontal"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvClosedPR"
@@ -39,7 +41,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeading"
-        tools:itemCount="3"
+        tools:itemCount="5"
         tools:listitem="@layout/item_closed_pull_request" />
 
     <TextView

@@ -4,31 +4,25 @@
 
 package dev.thelumiereguy.data.di
 
-import android.content.Context
-import android.os.Build
-import androidx.room.Room
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import dev.thelumiereguy.data.BuildConfig
-import dev.thelumiereguy.data.local.PullRequestsDatabase
-import dev.thelumiereguy.data.local.dao.ClosedPRDao
 import dev.thelumiereguy.data.network.ClosedPRsApi
 import dev.thelumiereguy.data.network.ClosedPRsApiImpl
 import dev.thelumiereguy.data.repo.ClosedPRsRepo
 import dev.thelumiereguy.data.repo.ClosedPRsRepoImpl
-import javax.inject.Singleton
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -44,27 +38,11 @@ internal abstract class ClosedPullRequestsModule {
     abstract fun bindClosedPRApi(
         closedPRsApi: ClosedPRsApiImpl
     ): ClosedPRsApi
-
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
 internal class ClosedPullRequestsDataModule {
-
-    @Provides
-    fun providePullRequestsDatabase(@ApplicationContext context: Context): PullRequestsDatabase {
-        return Room.databaseBuilder(
-            context,
-            PullRequestsDatabase::class.java,
-            "pull_requests"
-        ).fallbackToDestructiveMigration().build()
-    }
-
-    @Provides
-    fun provideClosedPRDao(db: PullRequestsDatabase): ClosedPRDao {
-        return db.closedPRDao()
-    }
-
 
     @Provides
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor =
@@ -84,7 +62,6 @@ internal class ClosedPullRequestsDataModule {
             }
             .build()
 
-
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val contentType = "application/json".toMediaType()
@@ -96,7 +73,6 @@ internal class ClosedPullRequestsDataModule {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .build()
-
     }
 
     companion object {

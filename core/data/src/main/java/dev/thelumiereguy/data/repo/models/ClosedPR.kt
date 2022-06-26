@@ -15,9 +15,3 @@ data class BranchDetails(
     val head: String,
     val base: String
 )
-
-data class PRDetails(
-    val replies: Int,
-    val commits: Int,
-    val filesChanged: Int
-)

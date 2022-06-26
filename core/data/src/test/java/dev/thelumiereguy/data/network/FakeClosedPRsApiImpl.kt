@@ -69,5 +69,4 @@ class FakeClosedPRsApiImpl : ClosedPRsApi {
             5
         )
     }
-
 }

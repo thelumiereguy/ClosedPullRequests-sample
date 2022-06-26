@@ -1,7 +1,6 @@
 package dev.thelumiereguy.data.repo
 
 import dev.thelumiereguy.data.repo.models.ClosedPR
-import dev.thelumiereguy.data.repo.models.PRDetails
 import dev.thelumiereguy.helpers.framework.ResultState
 import kotlinx.coroutines.flow.Flow
 

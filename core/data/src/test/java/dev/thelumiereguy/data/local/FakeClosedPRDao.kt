@@ -15,7 +15,6 @@ class FakeClosedPRDao : ClosedPRDao {
     }
 
     override suspend fun insert(closedPREntity: ClosedPREntity) {
-
     }
 
     override fun getClosedPRs(): Flow<List<ClosedPREntity>?> {

@@ -3,24 +3,17 @@ package dev.thelumiereguy.data.repo
 import app.cash.turbine.test
 import dev.thelumiereguy.data.local.FakeClosedPRDao
 import dev.thelumiereguy.data.local.dao.ClosedPRDao
-import dev.thelumiereguy.data.local.models.ClosedPREntity
 import dev.thelumiereguy.data.network.FakeClosedPRsApiImpl
 import dev.thelumiereguy.data.repo.models.BranchDetails
 import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.helpers.framework.DispatcherProvider
 import dev.thelumiereguy.helpers.framework.ResultState
 import io.mockk.*
-import kotlin.test.assertEquals
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.consumeAsFlow
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 internal class ClosedPRsRepoImplTest {
 
@@ -43,9 +36,9 @@ internal class ClosedPRsRepoImplTest {
                 assertEquals(
                     ResultState.loading(
                         emptyList()
-                    ), awaitItem()
+                    ),
+                    awaitItem()
                 )
-
 
                 assertEquals(
                     ResultState.Success(
@@ -61,11 +54,11 @@ internal class ClosedPRsRepoImplTest {
                                 )
                             )
                         )
-                    ), awaitItem()
+                    ),
+                    awaitItem()
                 )
             }
         }
-
 
     @Test
     fun `when next page is invoked, proper loading state should be emitted with existing data`() =
@@ -78,9 +71,9 @@ internal class ClosedPRsRepoImplTest {
                 assertEquals(
                     ResultState.loading(
                         emptyList()
-                    ), awaitItem()
+                    ),
+                    awaitItem()
                 )
-
 
                 assertEquals(
                     ResultState.Success(
@@ -116,9 +109,9 @@ internal class ClosedPRsRepoImplTest {
                                 )
                             )
                         )
-                    ), awaitItem()
+                    ),
+                    awaitItem()
                 )
-
 
                 assertEquals(
                     ResultState.Success(
@@ -144,9 +137,9 @@ internal class ClosedPRsRepoImplTest {
                                 )
                             )
                         )
-                    ), awaitItem()
+                    ),
+                    awaitItem()
                 )
-
             }
         }
 

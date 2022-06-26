@@ -4,13 +4,13 @@ import dev.thelumiereguy.data.network.ClosedPRsApiImpl.ClosedPullRequestsApi.Com
 import dev.thelumiereguy.data.network.ClosedPRsApiImpl.ClosedPullRequestsApi.Companion.repoFullName
 import dev.thelumiereguy.data.network.models.ClosedPRsResponseItem
 import dev.thelumiereguy.helpers.framework.APIState
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import javax.inject.Inject
 
 class ClosedPRsApiImpl @Inject constructor(
     retrofit: Retrofit

@@ -26,6 +26,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -48,5 +51,4 @@ dependencies {
     implementation(configs.Coroutines.CoroutineAndroid)
 
     implementation(configs.UILibraries.RecyclerView)
-    implementation(configs.AdapterDelegates.AdapterDelegatesDsl)
 }

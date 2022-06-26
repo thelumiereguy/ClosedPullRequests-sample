@@ -1,8 +1,6 @@
 package dev.thelumiereguy.feature_closed_pr_list.ui
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
@@ -22,15 +20,13 @@ import dev.thelumiereguy.feature_closed_pr_list.R
 import dev.thelumiereguy.feature_closed_pr_list.adapter.closedPRAdapter
 import dev.thelumiereguy.feature_closed_pr_list.databinding.FragmentClosedPrListingBinding
 import dev.thelumiereguy.feature_closed_pr_list.databinding.ItemClosedPullRequestBinding
-import dev.thelumiereguy.feature_closed_pr_list.viewmodel.ClosedPRListingActions
 import dev.thelumiereguy.feature_closed_pr_list.viewmodel.ClosedPRListingViewModel
-import dev.thelumiereguy.feature_closed_pr_list.viewmodel.UIEvent
 import dev.thelumiereguy.feature_closed_pr_list.viewmodel.UIState
 import dev.thelumiereguy.helpers.ui.SimpleItemDividerDecorator
 import dev.thelumiereguy.helpers.ui.adapter.BindingListAdapter
 import dev.thelumiereguy.helpers.ui.toDp
-import kotlin.math.roundToInt
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
@@ -46,13 +42,10 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
         super.onViewCreated(view, savedInstanceState)
         setupView(view)
         observeViewModel()
-        viewModel.add(ClosedPRListingActions.Fetch)
     }
 
     private fun setupView(view: View) {
-
         closedPRListAdapter = closedPRAdapter()
-
         viewBinding = FragmentClosedPrListingBinding.bind(view).apply {
             rvClosedPR.run {
                 adapter = closedPRListAdapter
@@ -75,9 +68,7 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                 val lastPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                 if (lastPosition >= 0) {
-                    viewModel.add(
-                        ClosedPRListingActions.LoadNextPage(lastPosition)
-                    )
+                    viewModel.loadNextPage(lastPosition)
                 }
             }
         })
@@ -100,27 +91,6 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                                 binding.tvError.isVisible = false
                             }
                             closedPRListAdapter?.submitList(uiState.listItems)
-                        }
-                    }
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collect { uiEvent ->
-                    when (uiEvent) {
-                        UIEvent.ShowLoading -> {
-                            showAfterFadeTransition(binding) {
-//                                flLoaderContainer.isVisible = true
-                                rvClosedPR.isVisible = false
-                            }
-                        }
-                        UIEvent.HideLoading -> {
-                            showAfterFadeTransition(binding) {
-//                                flLoaderContainer.isVisible = false
-                                rvClosedPR.isVisible = true
-                            }
                         }
                     }
                 }

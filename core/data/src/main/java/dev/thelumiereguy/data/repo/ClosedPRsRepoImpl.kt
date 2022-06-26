@@ -1,48 +1,44 @@
 package dev.thelumiereguy.data.repo
 
-import dev.thelumiereguy.data.local.dao.ClosedPRDao
-import dev.thelumiereguy.data.local.mapper.mapPREntityToDomainModel
 import dev.thelumiereguy.data.network.ClosedPRsApi
-import dev.thelumiereguy.data.network.mapper.mapPRListingResponseToEntity
+import dev.thelumiereguy.data.network.mapper.mapPRListingResponseToDomainModel
 import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.helpers.framework.APIState
 import dev.thelumiereguy.helpers.framework.DispatcherProvider
 import dev.thelumiereguy.helpers.framework.ResultState
 import javax.inject.Inject
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.flowOn
 
 class ClosedPRsRepoImpl @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
     private val closedPRsApi: ClosedPRsApi,
-    private val prDao: ClosedPRDao
 ) : ClosedPRsRepo {
+
+    private var closedPRList = emptyList<ClosedPR>()
 
     private val pageNumberState = MutableStateFlow(1)
 
     private val closedPRsRemote = pageNumberState.flatMapLatest { pageNumber ->
-        closedPRsApi.fetchClosedPRs(pageNumber).onEach {
-            if (it is APIState.Success) {
-                val response = it.data
-                prDao.insert(response.mapPRListingResponseToEntity())
+        closedPRsApi.fetchClosedPRs(pageNumber)
+            .onEach {
+                if (it is APIState.Success) {
+                    val prList = it.data
+                    closedPRList = closedPRList + prList.mapPRListingResponseToDomainModel()
+                }
             }
-        }
     }
 
-
     override fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>> {
-        return combine(
-            prDao.getClosedPRs(),
-            closedPRsRemote
-        ) { existingClosedPRs, apiState ->
-
-            println("Repo $existingClosedPRs $apiState")
-
-            val existingData = existingClosedPRs?.mapNotNull {
-                it.mapPREntityToDomainModel()
-            } ?: emptyList()
-
-            apiState + existingData
-
+        return closedPRsRemote.map {
+            it + closedPRList
+        }.onEach {
+            println("Repo $it")
         }.flowOn(dispatcherProvider.io)
     }
 

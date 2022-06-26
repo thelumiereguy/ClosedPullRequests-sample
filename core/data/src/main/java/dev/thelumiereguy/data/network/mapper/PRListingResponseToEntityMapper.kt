@@ -1,22 +1,30 @@
 package dev.thelumiereguy.data.network.mapper
 
-import dev.thelumiereguy.data.local.models.ClosedPREntity
 import dev.thelumiereguy.data.network.models.ClosedPRsResponseItem
+import dev.thelumiereguy.data.repo.models.BranchDetails
+import dev.thelumiereguy.data.repo.models.ClosedPR
 import kotlinx.datetime.Instant
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-fun List<ClosedPRsResponseItem>.mapPRListingResponseToEntity(): List<ClosedPREntity> {
+fun List<ClosedPRsResponseItem>.mapPRListingResponseToDomainModel(): List<ClosedPR> {
     return map { closedPRsResponseItem ->
-        ClosedPREntity(
+        ClosedPR(
             closedPRsResponseItem.number.toLong(),
             closedPRsResponseItem.title,
-            closedPRsResponseItem.closedAt.convertFullDateToTimestamp(),
+            closedPRsResponseItem.closedAt.formatDate(),
             closedPRsResponseItem.user.login,
-            closedPRsResponseItem.head.label,
-            closedPRsResponseItem.base.label,
+            BranchDetails(
+                closedPRsResponseItem.head.label,
+                closedPRsResponseItem.base.label,
+            )
         )
     }
 }
 
-private fun String.convertFullDateToTimestamp(): Long {
-    return Instant.parse(this).toEpochMilliseconds()
+private fun String.formatDate(): String {
+    val timeStamp = Instant.parse(this).toEpochMilliseconds()
+    return dateFormatter.format(timeStamp)
 }
+
+private val dateFormatter = SimpleDateFormat("dd MMM yyyy", Locale.ROOT)

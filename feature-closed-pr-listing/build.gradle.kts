@@ -53,7 +53,6 @@ dependencies {
 
     api(project(":core:ui"))
     implementation(project(":core:data"))
-    implementation(project(":core:experiments"))
 
     implementation(configs.SupportLibraries.CoreKtx)
     implementation(configs.SupportLibraries.Appcompat)
