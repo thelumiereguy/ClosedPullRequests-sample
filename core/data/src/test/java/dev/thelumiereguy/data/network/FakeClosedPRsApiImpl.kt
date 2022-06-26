@@ -4,7 +4,6 @@ import dev.thelumiereguy.data.network.models.ClosedPRsResponseItem
 import dev.thelumiereguy.helpers.framework.APIState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onEach
 
 class FakeClosedPRsApiImpl : ClosedPRsApi {
 

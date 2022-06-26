@@ -6,14 +6,13 @@ import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.helpers.framework.APIState
 import dev.thelumiereguy.helpers.framework.DispatcherProvider
 import dev.thelumiereguy.helpers.framework.ResultState
-import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 class ClosedPRsRepoImpl @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,

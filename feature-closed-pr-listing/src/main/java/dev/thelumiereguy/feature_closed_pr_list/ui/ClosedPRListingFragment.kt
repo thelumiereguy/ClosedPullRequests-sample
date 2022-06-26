@@ -21,7 +21,6 @@ import dev.thelumiereguy.feature_closed_pr_list.adapter.closedPRAdapter
 import dev.thelumiereguy.feature_closed_pr_list.databinding.FragmentClosedPrListingBinding
 import dev.thelumiereguy.feature_closed_pr_list.databinding.ItemClosedPullRequestBinding
 import dev.thelumiereguy.feature_closed_pr_list.viewmodel.ClosedPRListingViewModel
-import dev.thelumiereguy.feature_closed_pr_list.viewmodel.UIState
 import dev.thelumiereguy.helpers.ui.SimpleItemDividerDecorator
 import dev.thelumiereguy.helpers.ui.adapter.BindingListAdapter
 import dev.thelumiereguy.helpers.ui.toDp
@@ -65,8 +64,8 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
         binding.rvClosedPR.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val lastPosition =
-                    (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                val lastPosition = (recyclerView.layoutManager as LinearLayoutManager)
+                    .findLastVisibleItemPosition()
                 if (lastPosition >= 0) {
                     viewModel.loadNextPage(lastPosition)
                 }
