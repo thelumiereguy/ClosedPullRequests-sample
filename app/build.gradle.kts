@@ -9,9 +9,9 @@ plugins {
 
 android {
     compileSdk = configs.Configs.CompileSdk
-    namespace = "dev.thelumiereguy.trending_github_repos_sample"
+    namespace = "dev.thelumiereguy.closed_pull_requests_sample"
     defaultConfig {
-        applicationId = "dev.thelumiereguy.trending_github_repos_sample"
+        applicationId = "dev.thelumiereguy.closed_pull_requests_sample"
         minSdk = configs.Configs.MinSdk
         targetSdk = configs.Configs.TargetSdk
         versionCode = configs.Configs.VersionCode
@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":feature-closed-pr-listing"))
 
     implementation(configs.SupportLibraries.CoreKtx)
     implementation(configs.SupportLibraries.Appcompat)

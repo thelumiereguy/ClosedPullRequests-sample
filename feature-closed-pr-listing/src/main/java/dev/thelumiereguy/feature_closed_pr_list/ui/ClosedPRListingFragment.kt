@@ -54,7 +54,7 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
         closedPRListAdapter = closedPRAdapter()
 
         viewBinding = FragmentClosedPrListingBinding.bind(view).apply {
-            rvBooksList.run {
+            rvClosedPR.run {
                 adapter = closedPRListAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 addItemDecoration(
@@ -69,7 +69,7 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
 
     private fun observeViewModel() {
         val binding = viewBinding ?: return
-        binding.rvBooksList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.rvClosedPR.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val lastPosition =
@@ -87,13 +87,18 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                     when (uiState) {
                         UIState.EmptyState -> {
                             binding.progressHorizontal.isVisible = false
-                            binding.rvBooksList.isVisible = false
-                            binding.tvNoItems.isVisible = true
+                            binding.rvClosedPR.isVisible = false
                         }
                         is UIState.LoadedState -> {
+                            println("UIState $uiState")
                             binding.progressHorizontal.isInvisible = uiState.isLoading.not()
-                            binding.tvNoItems.isVisible = uiState.hasErrorOccurred
-                            binding.rvBooksList.isVisible = uiState.listItems.isNotEmpty()
+                            binding.rvClosedPR.isVisible = uiState.listItems.isNotEmpty()
+                            if (!uiState.errorMessage.isNullOrEmpty()) {
+                                binding.tvError.isVisible = true
+                                binding.tvError.text = "${binding.tvError.text} ${uiState.errorMessage}"
+                            } else {
+                                binding.tvError.isVisible = false
+                            }
                             closedPRListAdapter?.submitList(uiState.listItems)
                         }
                     }
@@ -108,13 +113,13 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                         UIEvent.ShowLoading -> {
                             showAfterFadeTransition(binding) {
 //                                flLoaderContainer.isVisible = true
-                                rvBooksList.isVisible = false
+                                rvClosedPR.isVisible = false
                             }
                         }
                         UIEvent.HideLoading -> {
                             showAfterFadeTransition(binding) {
 //                                flLoaderContainer.isVisible = false
-                                rvBooksList.isVisible = true
+                                rvClosedPR.isVisible = true
                             }
                         }
                     }
@@ -134,7 +139,7 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
     }
 
     override fun onDestroyView() {
-        viewBinding?.rvBooksList?.clearOnScrollListeners()
+        viewBinding?.rvClosedPR?.clearOnScrollListeners()
         viewBinding = null
         closedPRListAdapter = null
         super.onDestroyView()

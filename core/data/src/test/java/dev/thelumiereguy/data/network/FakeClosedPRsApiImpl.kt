@@ -1,6 +1,5 @@
 package dev.thelumiereguy.data.network
 
-import dev.thelumiereguy.data.network.models.ClosedPRDetailsResponse
 import dev.thelumiereguy.data.network.models.ClosedPRsListResponse
 import dev.thelumiereguy.helpers.framework.APIState
 import kotlinx.coroutines.flow.Flow
@@ -47,7 +46,7 @@ class FakeClosedPRsApiImpl : ClosedPRsApi {
         )
     }
 
-    override fun fetchClosedPRs(pageNumber: Int): Flow<APIState<ClosedPRsListResponse>> = flow {
+    override fun fetchClosedPRs(pageNumber: Int): Flow<APIState<List<Any>>> = flow {
         emit(APIState.Loading)
         try {
             if (pageNumber == 1) {

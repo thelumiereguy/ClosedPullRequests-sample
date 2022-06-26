@@ -4,9 +4,9 @@ import dev.thelumiereguy.data.repo.models.ClosedPR
 
 sealed class UIState {
     data class LoadedState(
-        val hasErrorOccurred: Boolean,
         val isLoading: Boolean,
-        val listItems: List<ClosedPR>
+        val listItems: List<ClosedPR>,
+        val errorMessage: String? = null,
     ) : UIState()
 
     object EmptyState : UIState()

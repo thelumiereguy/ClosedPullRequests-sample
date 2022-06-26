@@ -16,6 +16,6 @@ interface ClosedPRDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(closedPREntity: ClosedPREntity)
 
-    @Query("SELECT * from closed_pr")
+    @Query("SELECT * from closed_pr ORDER by closed_at DESC")
     fun getClosedPRs(): Flow<List<ClosedPREntity>?>
 }

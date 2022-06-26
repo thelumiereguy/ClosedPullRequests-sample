@@ -6,8 +6,8 @@ import dev.thelumiereguy.helpers.framework.ResultState
 import kotlinx.coroutines.flow.Flow
 
 interface ClosedPRsRepo {
-    suspend fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>>
-    suspend fun loadNextPage()
+    fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>>
+    fun loadNextPage()
 }
 
 // first try fetch

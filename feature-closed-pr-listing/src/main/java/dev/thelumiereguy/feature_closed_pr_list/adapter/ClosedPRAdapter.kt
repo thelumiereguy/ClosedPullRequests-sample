@@ -15,6 +15,11 @@ fun closedPRAdapter() = adapter(
         ItemClosedPullRequestBinding.inflate(layoutInflater, parent, false)
     },
     onBind = { item: ClosedPR ->
-        tvBookTitle.text = item.title
+        tvPrTitle.text = item.title
+        tvUserName.text = item.authorId
+        tvHeadBranch.text = item.branchDetails.head
+        tvUserBranch.text = item.branchDetails.base
+        tvPrNumber.text = item.itemId
+        tvClosedDate.text = item.closedTimeStamp
     }
 )

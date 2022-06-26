@@ -1,44 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="horizontal"
-    android:padding="12dp">
+    android:clipToPadding="false"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_book_logo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        tools:src="@android:drawable/ic_menu_slideshow" />
+    <ImageView
+        android:id="@+id/ivClosedPr"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:src="@drawable/ic_pr_closed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPrTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/dm_sans_medium"
+        android:lines="1"
+        android:maxWidth="150dp"
+        android:paddingStart="10dp"
+        android:text="Edited Readme"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/ivClosedPr"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/tvPrSubtitle_container"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingStart="16dp">
+        android:orientation="horizontal"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clMergeInfo">
 
         <TextView
-            android:id="@+id/tv_book_title"
+            android:id="@+id/tvPrNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="1.2"
-            android:textColor="#010104"
-            android:textSize="16sp"
-            tools:text="The Black Witch" />
+            android:fontFamily="@font/dm_sans_regular"
+            android:textColor="#555867"
+            android:textSize="14sp"
+            tools:text="#2296" />
 
         <TextView
-            android:id="@+id/tv_book_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:textColor="#4838D1"
+            android:fontFamily="@font/dm_sans_regular"
+            android:text=" was closed on "
+            android:textColor="#555867"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvClosedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans_regular"
+            android:textColor="#555867"
+            android:textSize="14sp"
+            tools:text="19 December 2021" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="By "
+        android:textColor="#555867"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvUserName"
+        app:layout_constraintEnd_toStartOf="@id/tvUserName"
+        app:layout_constraintTop_toTopOf="@id/tvUserName" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_medium"
+        android:paddingEnd="10dp"
+        android:textColor="#555867"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPrSubtitle_container"
+        tools:text="northspoon" />
+
+    <LinearLayout
+        android:id="@+id/clMergeInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/rounded_box"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/tvPrTitle"
+        app:layout_constraintStart_toEndOf="@id/tvPrTitle"
+        app:layout_constraintTop_toTopOf="@id/tvPrTitle">
+
+        <TextView
+            android:id="@+id/tvHeadBranch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/dm_sans_regular"
+            android:lines="1"
+            android:maxWidth="50dp"
+            android:text="Master"
+            android:textColor="@color/white"
             android:textSize="12sp"
-            tools:text="Laurie Forest" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:fontFamily="@font/dm_sans_medium" />
+
+        <ImageView
+            android:id="@+id/ivArrow"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginHorizontal="3dp"
+            android:layout_marginTop="3dp"
+            android:paddingStart="1dp"
+            android:paddingBottom="3dp"
+            android:src="@drawable/ic_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@+id/tvHeadBranch"
+            app:layout_constraintStart_toEndOf="@+id/tvHeadBranch"
+            app:layout_constraintTop_toTopOf="@+id/tvHeadBranch" />
+
+        <TextView
+            android:id="@+id/tvUserBranch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/dm_sans_regular"
+            android:lines="1"
+            android:maxWidth="50dp"
+            android:text="Test"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivArrow"
+            app:layout_constraintStart_toEndOf="@+id/ivArrow"
+            app:layout_constraintTop_toTopOf="@+id/ivArrow"
+            tools:fontFamily="@font/dm_sans_medium" />
 
 
     </LinearLayout>
 
-</LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="16dp"
+        android:background="#EDEDED"
+        android:padding="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

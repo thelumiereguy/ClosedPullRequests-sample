@@ -1,10 +1,10 @@
 package dev.thelumiereguy.data.network.mapper
 
 import dev.thelumiereguy.data.local.models.ClosedPREntity
-import dev.thelumiereguy.data.network.models.ClosedPRsListResponse
+import dev.thelumiereguy.data.network.models.ClosedPRsResponseItem
 import kotlinx.datetime.Instant
 
-fun ClosedPRsListResponse.mapPRListingResponseToEntity(): List<ClosedPREntity> {
+fun List<ClosedPRsResponseItem>.mapPRListingResponseToEntity(): List<ClosedPREntity> {
     return map { closedPRsResponseItem ->
         ClosedPREntity(
             closedPRsResponseItem.number.toLong(),

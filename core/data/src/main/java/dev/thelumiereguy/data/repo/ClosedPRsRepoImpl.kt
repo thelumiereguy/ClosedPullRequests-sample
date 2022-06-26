@@ -9,9 +9,7 @@ import dev.thelumiereguy.helpers.framework.APIState
 import dev.thelumiereguy.helpers.framework.DispatcherProvider
 import dev.thelumiereguy.helpers.framework.ResultState
 import javax.inject.Inject
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 class ClosedPRsRepoImpl @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
@@ -22,10 +20,8 @@ class ClosedPRsRepoImpl @Inject constructor(
     private val pageNumberState = MutableStateFlow(1)
 
     private val closedPRsRemote = pageNumberState.flatMapLatest { pageNumber ->
-        println("Loading next page $pageNumber")
         closedPRsApi.fetchClosedPRs(pageNumber).onEach {
             if (it is APIState.Success) {
-                println("Inserting data $pageNumber")
                 val response = it.data
                 prDao.insert(response.mapPRListingResponseToEntity())
             }
@@ -33,37 +29,13 @@ class ClosedPRsRepoImpl @Inject constructor(
     }
 
 
-    override suspend fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>> {
-        return pageNumberState.flatMapLatest { pageNumber ->
-            println("Loading next page $pageNumber")
-            closedPRsApi.fetchClosedPRs(pageNumber).onEach {
-                if (it is APIState.Success) {
-                    println("Inserting data $pageNumber")
-                    val response = it.data
-                    prDao.insert(response.mapPRListingResponseToEntity())
-                }
-            }.map { apiState ->
-                apiState + (prDao.getClosedPRs().first()?.mapNotNull {
-                    it.mapPREntityToDomainModel()
-                } ?: emptyList())
-//                apiState + existingData
-            }
-        }
-
-//        return closedPRsRemote.flatMapMerge { apiState ->
-//            prDao.getClosedPRs().map {
-//                apiState + (it?.mapNotNull {
-//                    it.mapPREntityToDomainModel()
-//                } ?: emptyList())
-//            }
-//        }
-
+    override fun getAllClosedPRs(): Flow<ResultState<List<ClosedPR>>> {
         return combine(
             prDao.getClosedPRs(),
             closedPRsRemote
         ) { existingClosedPRs, apiState ->
 
-            println("Repo $apiState $existingClosedPRs")
+            println("Repo $existingClosedPRs $apiState")
 
             val existingData = existingClosedPRs?.mapNotNull {
                 it.mapPREntityToDomainModel()
@@ -71,42 +43,10 @@ class ClosedPRsRepoImpl @Inject constructor(
 
             apiState + existingData
 
-        }.onEach {
-            println("State $it")
         }.flowOn(dispatcherProvider.io)
     }
 
-    override suspend fun loadNextPage() {
+    override fun loadNextPage() {
         pageNumberState.getAndUpdate { it + 1 }
     }
-
-//    private suspend fun ClosedPRsListResponse.fetchPrDetails(): List<ClosedPR> = supervisorScope {
-//
-//        val prDetailsList = map { closedPR ->
-//            async { closedPRsApi.fetchPRDetails(closedPR.number) }
-//        }.awaitAll()
-//
-//        return@supervisorScope mapIndexed { index, closedPR ->
-//
-//
-//            if (prDetails != null) {
-//
-//                ClosedPR(
-//                    closedPR.number.toLong(),
-//                    closedPR.title,
-//                    closedPR.user.login,
-//                    1,
-//                    prDetails = PRDetails(
-//                        prDetails.comments,
-//                        prDetails.commits,
-//                        prDetails.changed_files
-//                    ),
-//                    branchDetails = BranchDetails(
-//                        head = closedPR.head.label,
-//                        base = closedPR.base.label
-//                    )
-//                )
-//            } else null
-//        }.filterNotNull()
-//    }
 }

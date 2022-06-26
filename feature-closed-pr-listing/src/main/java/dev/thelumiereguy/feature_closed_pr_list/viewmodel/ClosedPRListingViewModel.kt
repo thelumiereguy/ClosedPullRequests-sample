@@ -27,18 +27,18 @@ class ClosedPRListingViewModel @Inject constructor(
         when (it) {
             is ResultState.Error -> UIState.LoadedState(
                 true,
-                false,
-                it.data ?: emptyList()
+                it.data ?: emptyList(),
+                it.message
             )
             is ResultState.Loading -> UIState.LoadedState(
                 false,
-                true,
-                it.data ?: emptyList()
+                it.data ?: emptyList(),
+                null
             )
             is ResultState.Success -> UIState.LoadedState(
                 false,
-                false,
-                it.data
+                it.data,
+                null
             )
         }
     }.stateIn(
