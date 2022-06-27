@@ -1,6 +1,7 @@
 package dev.thelumiereguy.feature_closed_pr_list.ui
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -11,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Slide
+import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.feature_closed_pr_list.R
@@ -18,6 +21,7 @@ import dev.thelumiereguy.feature_closed_pr_list.adapter.closedPRAdapter
 import dev.thelumiereguy.feature_closed_pr_list.databinding.FragmentClosedPrListingBinding
 import dev.thelumiereguy.feature_closed_pr_list.databinding.ItemClosedPullRequestBinding
 import dev.thelumiereguy.feature_closed_pr_list.viewmodel.ClosedPRListingViewModel
+import dev.thelumiereguy.feature_closed_pr_list.viewmodel.UIState
 import dev.thelumiereguy.helpers.ui.SimpleItemDividerDecorator
 import dev.thelumiereguy.helpers.ui.adapter.BindingListAdapter
 import dev.thelumiereguy.helpers.ui.toDp
@@ -73,16 +77,21 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                 viewModel.state.collect { uiState ->
                     binding.progressHorizontal.isInvisible = uiState.isLoading.not()
                     binding.rvClosedPR.isVisible = uiState.listItems.isNotEmpty()
-                    if (!uiState.errorMessage.isNullOrEmpty()) {
-                        binding.tvError.isVisible = true
-                        binding.tvError.text = "${binding.tvError.text} ${uiState.errorMessage}"
-                    } else {
-                        binding.tvError.isVisible = false
-                    }
+                    showHideError(uiState, binding)
                     closedPRListAdapter?.submitList(uiState.listItems)
                 }
             }
         }
+    }
+
+    private fun showHideError(
+        uiState: UIState,
+        binding: FragmentClosedPrListingBinding
+    ) {
+        TransitionManager.beginDelayedTransition(binding.root, Slide(Gravity.BOTTOM).apply {
+            duration = 300
+        })
+        binding.errorContainer.isVisible = !uiState.errorMessage.isNullOrEmpty()
     }
 
     override fun onDestroyView() {

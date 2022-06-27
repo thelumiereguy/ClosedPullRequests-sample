@@ -30,7 +30,7 @@
         android:textColor="#06070C"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_horizontal"/>
+        app:layout_constraintTop_toBottomOf="@id/progress_horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvClosedPR"
@@ -44,21 +44,36 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_closed_pull_request" />
 
-    <TextView
-        android:id="@+id/tvError"
-        android:layout_width="0dp"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/errorContainer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/dm_sans_bold"
-        android:gravity="center"
-        android:text="There has been an error : \n"
-        android:textAlignment="center"
-        android:textColor="#06070C"
-        android:textSize="20sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="16dp"
+        app:contentPadding="16dp"
+        android:alpha="0.8"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@color/design_default_color_error"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.9" />
+        app:layout_constraintWidth_percent="0.9">
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/dm_sans_bold"
+            android:gravity="center"
+            android:text="There has been an error."
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:drawablePadding="4dp"
+            android:textSize="14sp"
+            app:drawableStartCompat="@android:drawable/stat_notify_error" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
