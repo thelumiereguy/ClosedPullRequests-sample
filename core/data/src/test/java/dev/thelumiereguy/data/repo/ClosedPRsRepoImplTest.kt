@@ -45,7 +45,9 @@ internal class ClosedPRsRepoImplTest {
                                 123,
                                 "Test 1",
                                 "testuser",
+                                "",
                                 "07 Jun 2022", // 1654541717000
+                                "07 Jun 2022", // 1654541917000
                                 branchDetails = BranchDetails(
                                     "test",
                                     "master"
@@ -66,6 +68,8 @@ internal class ClosedPRsRepoImplTest {
                 123,
                 "Test 1",
                 "testuser",
+                "",
+                "07 Jun 2022",
                 "07 Jun 2022",
                 branchDetails = BranchDetails(
                     "test",
@@ -112,6 +116,8 @@ internal class ClosedPRsRepoImplTest {
                                 456,
                                 "Test 2",
                                 "page2TestUser",
+                                "",
+                                "07 Jun 2022",
                                 "07 Jun 2022",
                                 branchDetails = BranchDetails(
                                     "test_branch",
@@ -133,6 +139,8 @@ internal class ClosedPRsRepoImplTest {
                 123,
                 "Test 1",
                 "testuser",
+                "",
+                "07 Jun 2022",
                 "07 Jun 2022",
                 branchDetails = BranchDetails(
                     "test",

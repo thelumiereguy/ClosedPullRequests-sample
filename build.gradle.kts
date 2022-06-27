@@ -23,6 +23,7 @@ subprojects {
         debug.set(true)
         verbose.set(true)
         android.set(true)
+        disabledRules.set(setOf("import-ordering", "max-line-length"))
         outputToConsole.set(true)
         outputColorName.set("RED")
     }

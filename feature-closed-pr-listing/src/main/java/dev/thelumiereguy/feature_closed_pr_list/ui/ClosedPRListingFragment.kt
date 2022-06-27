@@ -2,7 +2,6 @@ package dev.thelumiereguy.feature_closed_pr_list.ui
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -12,8 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.Fade
-import androidx.transition.TransitionManager
 import dagger.hilt.android.AndroidEntryPoint
 import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.feature_closed_pr_list.R
@@ -86,16 +83,6 @@ class ClosedPRListingFragment : Fragment(R.layout.fragment_closed_pr_listing) {
                 }
             }
         }
-    }
-
-    private fun showAfterFadeTransition(
-        binding: FragmentClosedPrListingBinding,
-        block: FragmentClosedPrListingBinding.() -> Unit
-    ) {
-        TransitionManager.beginDelayedTransition(
-            binding.root as ViewGroup, Fade()
-        )
-        block(binding)
     }
 
     override fun onDestroyView() {

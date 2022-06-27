@@ -1,6 +1,7 @@
 package configs
 
 object Versions {
+    const val KotlinXDateTime: String = "0.3.2"
     const val SlidingPanelLayout = "1.2.0"
     const val MockK = "1.12.2"
     const val Glide = "4.12.0"
@@ -22,6 +23,13 @@ object Versions {
     const val Room = "2.4.2"
 
     const val AdapterDelegates = "4.3.2"
+
+    const val FlowTurbine = "0.8.0"
+
+    const val Retrofit = "2.9.0"
+    const val OkHttpInterceptor = "4.9.2"
+
+    const val KotlinXSerializationConverter = "0.8.0"
 }
 
 object SupportLibraries {
@@ -81,9 +89,21 @@ object Utilities {
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KotlinXSerialization}"
 
     const val Glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
+
+    const val KotlinXDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.KotlinXDateTime}"
+}
+
+object Network {
+    const val Retrofit = "com.squareup.retrofit2:retrofit:${Versions.Retrofit}"
+
+    const val OkhttpInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.OkHttpInterceptor}"
+
+    const val KotlinxSerializationConverter =
+        "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.KotlinXSerializationConverter}"
 }
 
 object TestUtils {
     const val JupiterJunit = "org.junit.jupiter:junit-jupiter"
     const val MockK = "io.mockk:mockk:${Versions.MockK}"
+    const val Turbine = "app.cash.turbine:turbine:${Versions.FlowTurbine}"
 }

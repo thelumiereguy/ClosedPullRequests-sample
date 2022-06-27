@@ -76,6 +76,8 @@ internal class ClosedPRListingViewModelTest {
             "Test 1",
             "test_author",
             "",
+            "17 Jun 2022",
+            "17 Jun 2022",
             BranchDetails(
                 "test",
                 "master"
@@ -86,6 +88,8 @@ internal class ClosedPRListingViewModelTest {
             "Test 2",
             "test_author2",
             "",
+            "17 Jun 2022",
+            "17 Jun 2022",
             BranchDetails(
                 "test2",
                 "master"

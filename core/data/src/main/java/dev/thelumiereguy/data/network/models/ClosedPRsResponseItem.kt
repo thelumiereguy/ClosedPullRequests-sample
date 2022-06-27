@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ClosedPRsResponseItem(
     @SerialName("closed_at") val closedAt: String,
+    @SerialName("created_at") val createdAt: String,
     @SerialName("number") val number: Int,
     @SerialName("title") val title: String,
     @SerialName("base") val base: Base,
@@ -24,6 +25,7 @@ data class ClosedPRsResponseItem(
 
     @Serializable
     data class User(
-        @SerialName("login") val login: String
+        @SerialName("login") val login: String,
+        @SerialName("avatar_url") val avatar_url: String
     )
 }

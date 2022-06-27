@@ -9,6 +9,7 @@ class FakeClosedPRsApiImpl : ClosedPRsApi {
 
     private val response = listOf(
         ClosedPRsResponseItem(
+            "2022-06-06T18:58:37Z",
             "2022-06-06T18:55:17Z",
             123,
             "Test 1",
@@ -20,12 +21,14 @@ class FakeClosedPRsApiImpl : ClosedPRsApi {
             ),
             ClosedPRsResponseItem.User(
                 "testuser",
+                "",
             )
         )
     )
 
     private val responsePage2 = listOf(
         ClosedPRsResponseItem(
+            "2022-06-06T18:55:17Z",
             "2022-06-06T18:55:17Z",
             456,
             "Test 2",
@@ -37,6 +40,7 @@ class FakeClosedPRsApiImpl : ClosedPRsApi {
             ),
             ClosedPRsResponseItem.User(
                 "page2TestUser",
+                "",
             )
         )
     )

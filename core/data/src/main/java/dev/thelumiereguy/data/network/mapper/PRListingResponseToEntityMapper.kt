@@ -13,6 +13,8 @@ fun List<ClosedPRsResponseItem>.mapPRListingResponseToDomainModel(): List<Closed
             closedPRsResponseItem.number.toLong(),
             closedPRsResponseItem.title,
             closedPRsResponseItem.user.login,
+            closedPRsResponseItem.user.avatar_url,
+            closedPRsResponseItem.createdAt.formatDate(),
             closedPRsResponseItem.closedAt.formatDate(),
             BranchDetails(
                 closedPRsResponseItem.head.label,

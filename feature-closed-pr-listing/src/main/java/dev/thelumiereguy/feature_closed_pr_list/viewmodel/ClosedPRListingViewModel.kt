@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ClosedPRListingViewModel @Inject constructor(
     private val closedPRsRepo: ClosedPRsRepo,
-    private val dispatcherProvider: DispatcherProvider
+    dispatcherProvider: DispatcherProvider
 ) : ViewModel() {
 
     val state = closedPRsRepo.getAllClosedPRs().map {
@@ -38,7 +38,7 @@ class ClosedPRListingViewModel @Inject constructor(
         }
     }.flowOn(dispatcherProvider.default).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(),
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000), // Clear buffer only after 5 seconds
         initialValue = UIState(
             true,
             emptyList(),

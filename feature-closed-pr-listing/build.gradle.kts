@@ -79,5 +79,5 @@ dependencies {
 
     testImplementation(configs.TestUtils.MockK)
 
-    testImplementation("app.cash.turbine:turbine:0.8.0")
+    testImplementation(configs.TestUtils.Turbine)
 }

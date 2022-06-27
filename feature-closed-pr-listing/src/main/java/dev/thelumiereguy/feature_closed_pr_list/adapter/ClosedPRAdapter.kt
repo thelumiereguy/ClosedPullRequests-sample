@@ -5,6 +5,7 @@
 package dev.thelumiereguy.feature_closed_pr_list.adapter
 
 import android.view.LayoutInflater
+import com.bumptech.glide.Glide
 import dev.thelumiereguy.data.repo.models.ClosedPR
 import dev.thelumiereguy.feature_closed_pr_list.databinding.ItemClosedPullRequestBinding
 import dev.thelumiereguy.helpers.ui.adapter.adapter
@@ -20,6 +21,10 @@ fun closedPRAdapter() = adapter(
         tvHeadBranch.text = item.branchDetails.head
         tvUserBranch.text = item.branchDetails.base
         tvPrNumber.text = item.itemId
-        tvClosedDate.text = item.closedTimeStamp
+        tvClosedOn.text = item.closedAtDate
+        tvPrCreatedOn.text = item.createdAtDate
+        Glide.with(root.context)
+            .load(item.authorImage)
+            .into(ivUserAvatar)
     }
 )

@@ -12,9 +12,10 @@
         android:id="@+id/ivClosedPr"
         android:layout_width="22dp"
         android:layout_height="22dp"
+        android:baselineAlignBottom="true"
         android:src="@drawable/ic_pr_closed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@id/tvPrTitle"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvPrTitle"
@@ -25,73 +26,11 @@
         android:lines="1"
         android:maxWidth="150dp"
         android:paddingStart="10dp"
-        android:text="Edited Readme"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/ivClosedPr"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/tvPrSubtitle_container"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clMergeInfo">
-
-        <TextView
-            android:id="@+id/tvPrNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/dm_sans_regular"
-            android:textColor="#555867"
-            android:textSize="14sp"
-            tools:text="#2296" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/dm_sans_regular"
-            android:text=" was closed on "
-            android:textColor="#555867"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvClosedDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/dm_sans_regular"
-            android:textColor="#555867"
-            android:textSize="14sp"
-            tools:text="19 December 2021" />
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/dm_sans_medium"
-        android:text="By "
-        android:textColor="#555867"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/tvUserName"
-        app:layout_constraintEnd_toStartOf="@id/tvUserName"
-        app:layout_constraintTop_toTopOf="@id/tvUserName" />
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/dm_sans_medium"
-        android:paddingEnd="10dp"
-        android:textColor="#555867"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvPrSubtitle_container"
-        tools:text="northspoon" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Edited Readme" />
 
     <LinearLayout
         android:id="@+id/clMergeInfo"
@@ -115,12 +54,11 @@
             android:fontFamily="@font/dm_sans_regular"
             android:lines="1"
             android:maxWidth="50dp"
-            android:text="Master"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:fontFamily="@font/dm_sans_medium" />
+            tools:text="Master" />
 
         <ImageView
             android:id="@+id/ivArrow"
@@ -143,24 +81,138 @@
             android:fontFamily="@font/dm_sans_regular"
             android:lines="1"
             android:maxWidth="50dp"
-            android:text="Test"
             android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivArrow"
             app:layout_constraintStart_toEndOf="@+id/ivArrow"
             app:layout_constraintTop_toTopOf="@+id/ivArrow"
-            tools:fontFamily="@font/dm_sans_medium" />
+            tools:text="Test" />
 
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginVertical="16dp"
-        android:background="#EDEDED"
-        android:padding="16dp"
+    <TextView
+        android:id="@+id/tvPrNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="@string/pull_request_id"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+        app:layout_constraintTop_toBottomOf="@id/clMergeInfo" />
+
+    <TextView
+        android:id="@+id/tvPrNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_bold"
+        android:paddingStart="4dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvPrNumberLabel"
+        app:layout_constraintStart_toEndOf="@id/tvPrNumberLabel"
+        app:layout_constraintTop_toTopOf="@id/tvPrNumberLabel"
+        tools:text="#2296" />
+
+    <TextView
+        android:id="@+id/tvAuthorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="@string/author"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPrNumberLabel" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivUserAvatar"
+        app:shapeAppearanceOverlay="@style/CircleImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="2dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvAuthorLabel"
+        app:layout_constraintStart_toEndOf="@id/tvAuthorLabel"
+        app:layout_constraintTop_toTopOf="@id/tvAuthorLabel"
+        tools:src="@drawable/ic_pr_closed" />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_bold"
+        android:paddingStart="4dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/ivUserAvatar"
+        app:layout_constraintStart_toEndOf="@id/ivUserAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivUserAvatar"
+        tools:text="northspoon" />
+
+    <TextView
+        android:id="@+id/tvCreatedOnLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="@string/created_on"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivUserAvatar" />
+
+    <TextView
+        android:id="@+id/tvPrCreatedOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_bold"
+        android:paddingStart="4dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvCreatedOnLabel"
+        app:layout_constraintStart_toEndOf="@id/tvCreatedOnLabel"
+        app:layout_constraintTop_toTopOf="@id/tvCreatedOnLabel"
+        tools:text="19 Dec 2021" />
+
+
+    <TextView
+        android:id="@+id/tvClosedOnLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/dm_sans_medium"
+        android:text="@string/closed_on"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCreatedOnLabel" />
+
+    <TextView
+        android:id="@+id/tvClosedOn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/dm_sans_bold"
+        android:paddingStart="4dp"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvClosedOnLabel"
+        app:layout_constraintStart_toEndOf="@id/tvClosedOnLabel"
+        app:layout_constraintTop_toTopOf="@id/tvClosedOnLabel"
+        tools:text="19 Dec 2021" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#EDEDED"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvClosedOnLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -68,12 +67,12 @@ dependencies {
 
     testImplementation(configs.TestUtils.MockK)
 
-    testImplementation("app.cash.turbine:turbine:0.8.0")
+    testImplementation(configs.TestUtils.Turbine)
 
-    api("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+    api(configs.Utilities.KotlinXDateTime)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation(configs.Network.Retrofit)
+    implementation(configs.Network.KotlinxSerializationConverter)
+    implementation(configs.Network.OkhttpInterceptor)
 }

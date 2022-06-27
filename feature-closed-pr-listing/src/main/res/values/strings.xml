@@ -8,4 +8,8 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="library">Library</string>
+    <string name="pull_request_id">PR number -</string>
+    <string name="author">Author -</string>
+    <string name="created_on">Created On -</string>
+    <string name="closed_on">Closed On -</string>
 </resources>
